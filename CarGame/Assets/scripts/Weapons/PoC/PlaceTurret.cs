@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class PlaceTurret : MonoBehaviour
 {
+    private Camera thisCam;
+
     public GameObject PrefabTurret;
     public GameObject SelectedWeapon;
 
     public bool IsPutDown = true;
 
+    private void Start()
+    {
+        thisCam = GetComponent<Camera>();
+    }
+
     public void AddWeapon()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = thisCam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit hit)/* && hit.collider.gameObject.tag == "Car"*/)
         {
             Quaternion rotation = Quaternion.LookRotation(PrefabTurret.transform.forward, hit.normal);
